@@ -4,6 +4,6 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   swcMinify: true,
-};
+}
 
-module.exports = nextConfig;
+module.exports = nextConfig

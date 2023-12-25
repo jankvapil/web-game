@@ -1,5 +1,5 @@
-import Image from "next/image";
-import Link from "next/link";
+import Image from 'next/image'
+import Link from 'next/link'
 
 export default function Home() {
   return (
@@ -17,7 +17,7 @@ export default function Home() {
             Next.js Prisma PostgreSQL Auth Starter
           </h1>
           <p className="text-stone-400 mt-5">
-            This is a{" "}
+            This is a{' '}
             <a
               href="https://nextjs.org/"
               target="_blank"
@@ -25,8 +25,8 @@ export default function Home() {
               className="text-stone-400 underline hover:text-stone-200 transition-all"
             >
               Next.js
-            </a>{" "}
-            starter kit that uses{" "}
+            </a>{' '}
+            starter kit that uses{' '}
             <a
               href="https://next-auth.js.org/"
               target="_blank"
@@ -34,8 +34,8 @@ export default function Home() {
               className="text-stone-400 underline hover:text-stone-200 transition-all"
             >
               Next-Auth
-            </a>{" "}
-            for simple email + password login and a{" "}
+            </a>{' '}
+            for simple email + password login and a{' '}
             <a
               href="https://vercel.com/postgres"
               target="_blank"
@@ -43,7 +43,7 @@ export default function Home() {
               className="text-stone-400 underline hover:text-stone-200 transition-all"
             >
               Vercel Postgres
-            </a>{" "}
+            </a>{' '}
             database to persist the data.
           </p>
         </div>
@@ -76,5 +76,5 @@ export default function Home() {
         </div>
       </div>
     </div>
-  );
+  )
 }

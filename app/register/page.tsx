@@ -1,6 +1,6 @@
-import Image from "next/image";
-import Form from "@/components/form";
-import Link from "next/link";
+import Image from 'next/image'
+import Form from '@/components/form'
+import Link from 'next/link'
 
 export default function Login() {
   return (
@@ -25,5 +25,5 @@ export default function Login() {
         <Form type="register" />
       </div>
     </div>
-  );
+  )
 }
