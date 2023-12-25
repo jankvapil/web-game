@@ -4,8 +4,10 @@ import { NextRequest, NextResponse } from 'next/server'
 export default async function middleware(req: NextRequest) {
   const path = req.nextUrl.pathname
 
-  // If it's the root path, just render it
-  if (path === '/') {
+  const publicRoutes = ['/register', '/login']
+  const privateRoutes = ['/']
+
+  if (!privateRoutes.includes(path)) {
     return NextResponse.next()
   }
 
@@ -14,10 +16,10 @@ export default async function middleware(req: NextRequest) {
     secret: process.env.NEXTAUTH_SECRET,
   })
 
-  if (!session && path === '/game') {
+  if (!session && privateRoutes.includes(path)) {
     return NextResponse.redirect(new URL('/login', req.url))
-  } else if (session && (path === '/login' || path === '/register')) {
-    return NextResponse.redirect(new URL('/game', req.url))
+  } else if (session && publicRoutes.includes(path)) {
+    return NextResponse.redirect(new URL('/', req.url))
   }
   return NextResponse.next()
 }
