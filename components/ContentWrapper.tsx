@@ -5,5 +5,11 @@ type IContentWrapper = {
 }
 
 export const ContentWrapper = (props: IContentWrapper) => {
-  return <div>{props.children}</div>
+  return (
+    <div className="flex h-screen bg-black">
+      <div className="w-screen h-screen flex flex-col justify-center items-center text-white">
+        {props.children}
+      </div>
+    </div>
+  )
 }

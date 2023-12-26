@@ -4,6 +4,7 @@ import { Metadata } from 'next'
 import { Toaster } from 'react-hot-toast'
 import AuthStatus from '@/components/AuthStatus'
 import { Suspense } from 'react'
+import { ContentWrapper } from '@/components/ContentWrapper'
 
 const title = 'Next.js Prisma Postgres Auth Starter'
 const description =
@@ -33,7 +34,7 @@ export default async function RootLayout({
         <Suspense fallback="Loading...">
           <AuthStatus />
         </Suspense>
-        {children}
+        <ContentWrapper>{children}</ContentWrapper>
       </body>
     </html>
   )
