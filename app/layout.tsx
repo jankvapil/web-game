@@ -5,6 +5,7 @@ import { Toaster } from 'react-hot-toast'
 import AuthStatus from '@/components/AuthStatus'
 import { Suspense } from 'react'
 import { ContentWrapper } from '@/components/ContentWrapper'
+import { SocketProvider } from '@/components/providers/SocketProvider'
 
 const title = 'Next.js Prisma Postgres Auth Starter'
 const description =
@@ -30,11 +31,13 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Toaster />
-        <Suspense fallback="Loading...">
-          <AuthStatus />
-        </Suspense>
-        <ContentWrapper>{children}</ContentWrapper>
+        <SocketProvider>
+          <Toaster />
+          <Suspense fallback="Loading...">
+            <AuthStatus />
+          </Suspense>
+          <ContentWrapper>{children}</ContentWrapper>
+        </SocketProvider>
       </body>
     </html>
   )
