@@ -16,8 +16,16 @@ export const Game = () => {
     const Phaser = await import('phaser')
     const game = new Phaser.Game({
       ...config,
+
       parent: containerId,
     })
+
+    game.events.on('endgame', () => {
+      console.log('[Event] end game')
+
+      game.events.emit('restart')
+    })
+
     setGame(game)
   }
 

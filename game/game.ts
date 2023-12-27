@@ -16,7 +16,10 @@ let snake
 let food
 let cursors
 
-//  Direction consts
+// event bus for interacting with UI
+let eventBus: Phaser.Events.EventEmitter
+
+// direction consts
 let UP = 0
 let DOWN = 1
 let LEFT = 2
@@ -28,6 +31,18 @@ function preload() {
 }
 
 function create() {
+  eventBus = this.game.events
+
+  eventBus.on('restart', () => {
+    console.log('[Event] restart game')
+
+    // removes all game objects
+    this.children.list = []
+    // reinitialize food & snake
+    food = new Food(this, 3, 4)
+    snake = new Snake(this, 8, 8)
+  })
+
   var Food = new Phaser.Class({
     Extends: Phaser.GameObjects.Image,
 
@@ -146,9 +161,8 @@ function create() {
       )
 
       if (hitBody) {
-        console.log('dead')
-
         this.alive = false
+        eventBus.emit('endgame')
 
         return false
       } else {
