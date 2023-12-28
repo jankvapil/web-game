@@ -34,7 +34,7 @@ function create() {
   eventBus = this.game.events
 
   eventBus.on('restart', () => {
-    console.log('[Event] restart game')
+    console.log('[GameEvent] restart game')
 
     // removes all game objects
     this.children.list = []
@@ -184,6 +184,7 @@ function create() {
         this.grow()
 
         food.eat()
+        eventBus.emit('scoreUp', food.total)
 
         //  For every 5 items of food eaten we'll increase the snake speed a little
         if (this.speed > 20 && food.total % 5 === 0) {

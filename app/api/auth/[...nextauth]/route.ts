@@ -28,6 +28,12 @@ export const authOptions: NextAuthOptions = {
       },
     }),
   ],
+  callbacks: {
+    session: async ({ session, token }) => {
+      session.user.id = Number(token.sub)
+      return session
+    },
+  },
 }
 
 const handler = NextAuth(authOptions)
