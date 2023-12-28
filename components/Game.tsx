@@ -3,15 +3,16 @@
 import { config } from 'game/game'
 import { useEffect, useState } from 'react'
 import { Game as GameType } from 'phaser'
+import { useSocket } from './providers/SocketProvider'
 
 /**
  * Client-side game component
  */
 export const Game = () => {
   const containerId = 'game-content'
+  const { socket, isConnected } = useSocket()
   const [game, setGame] = useState<GameType | null>(null)
 
-  let loading = false
   const loadPhaser = async () => {
     const Phaser = await import('phaser')
     const game = new Phaser.Game({
@@ -29,10 +30,25 @@ export const Game = () => {
     setGame(game)
   }
 
+  let loading = false
   useEffect(() => {
     !loading && loadPhaser()
     loading = true
   }, [])
+
+  useEffect(() => {
+    if (isConnected) {
+      console.log('[SocketIO] User is connected to the socket:')
+      console.log(socket)
+
+      socket.emit('init', 'Hello from client!')
+
+      socket.on('init', (data: any) => {
+        console.log('[SocketIO] Message arrived!')
+        console.log(data)
+      })
+    }
+  }, [socket, isConnected])
 
   return <div id={containerId} />
 }
