@@ -4,12 +4,14 @@ import { config } from 'game/game'
 import { useEffect, useState } from 'react'
 import { Game as GameType } from 'phaser'
 import { useSocket } from './providers/SocketProvider'
+import { useSession } from 'next-auth/react'
 
 /**
  * Client-side game component
  */
 export const Game = () => {
   const containerId = 'game-content'
+  const session = useSession()
   const { socket, isConnected } = useSocket()
   const [game, setGame] = useState<GameType | null>(null)
 
@@ -17,18 +19,20 @@ export const Game = () => {
     const Phaser = await import('phaser')
     const game = new Phaser.Game({
       ...config,
-
       parent: containerId,
     })
 
     game.events.on('endgame', () => {
       console.log('[Event] end game')
-
       game.events.emit('restart')
     })
 
     setGame(game)
   }
+
+  useEffect(() => {
+    console.log(session)
+  }, [session])
 
   let loading = false
   useEffect(() => {

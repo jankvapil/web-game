@@ -6,6 +6,7 @@ import AuthStatus from '@/components/AuthStatus'
 import { Suspense } from 'react'
 import { ContentWrapper } from '@/components/ContentWrapper'
 import { SocketProvider } from '@/components/providers/SocketProvider'
+import { SessionProvider } from '@/components/providers/SessionProvider'
 
 const title = 'Next.js Prisma Postgres Auth Starter'
 const description =
@@ -31,13 +32,15 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body>
-        <SocketProvider>
-          <Toaster />
-          <Suspense fallback="Loading...">
-            <AuthStatus />
-          </Suspense>
-          <ContentWrapper>{children}</ContentWrapper>
-        </SocketProvider>
+        <SessionProvider>
+          <SocketProvider>
+            <Toaster />
+            <Suspense fallback="Loading...">
+              <AuthStatus />
+            </Suspense>
+            <ContentWrapper>{children}</ContentWrapper>
+          </SocketProvider>
+        </SessionProvider>
       </body>
     </html>
   )
