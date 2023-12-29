@@ -2,9 +2,9 @@
 import '@/styles/globals.css'
 import { Metadata } from 'next'
 import { Toaster } from 'react-hot-toast'
-import AuthStatus from '@/components/AuthStatus'
+import AuthStatus from '@/components/ui/AuthStatus'
 import { Suspense } from 'react'
-import { ContentWrapper } from '@/components/ContentWrapper'
+import { ContentWrapper } from '@/components/ui/ContentWrapper'
 import { SocketProvider } from '@/components/providers/SocketProvider'
 import { SessionProvider } from '@/components/providers/SessionProvider'
 

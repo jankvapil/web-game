@@ -1,7 +1,7 @@
 import '@/styles/globals.css'
 
 import Image from 'next/image'
-import Form from '@/components/Form'
+import Form from '@/components/ui/form/Form'
 import Link from 'next/link'
 
 export default function Login() {

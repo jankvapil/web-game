@@ -1,3 +1,4 @@
+import { Event } from '@/lib/types'
 import Phaser from 'phaser'
 
 export const config = {
@@ -33,7 +34,7 @@ function preload() {
 function create() {
   eventBus = this.game.events
 
-  eventBus.on('restart', () => {
+  eventBus.on(Event.Restart, () => {
     console.log('[GameEvent] restart game')
 
     // removes all game objects
@@ -162,7 +163,7 @@ function create() {
 
       if (hitBody) {
         this.alive = false
-        eventBus.emit('endgame')
+        eventBus.emit(Event.Endgame)
 
         return false
       } else {
@@ -181,10 +182,10 @@ function create() {
 
     collideWithFood: function (food) {
       if (this.head.x === food.x && this.head.y === food.y) {
-        this.grow()
+        eventBus.emit(Event.ScoreUp, food.total)
 
+        this.grow()
         food.eat()
-        eventBus.emit('scoreUp', food.total)
 
         //  For every 5 items of food eaten we'll increase the snake speed a little
         if (this.speed > 20 && food.total % 5 === 0) {
@@ -211,7 +212,6 @@ function create() {
   })
 
   food = new Food(this, 3, 4)
-
   snake = new Snake(this, 8, 8)
 
   //  Create our keyboard controls

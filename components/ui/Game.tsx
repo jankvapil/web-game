@@ -1,11 +1,11 @@
 'use client'
 
-import { config } from 'game/game'
+import { config } from '@/lib/game/game'
 import { useEffect, useState } from 'react'
 import { Game as GameType } from 'phaser'
-import { useSocket } from './providers/SocketProvider'
+import { useSocket } from '../providers/SocketProvider'
 import { useSession } from 'next-auth/react'
-import { ScoreUpPayload, SocketInitResponse } from '@/lib/types'
+import { Event, ScoreUpPayload, SocketInitResponse } from '@/lib/types'
 
 /**
  * Client-side game component
@@ -14,7 +14,7 @@ export const Game = () => {
   const containerId = 'game-content'
   const session = useSession()
   const { socket, isConnected } = useSocket()
-  const [game, setGame] = useState<GameType | null>(null)
+  const [_, setGame] = useState<GameType | null>(null)
   const [playerTopScore, setPlayerTopScore] = useState(0)
   const [allPlayersTopScore, setAllPlayersTopScore] = useState(0)
   const [currentScore, setCurrentScore] = useState(0)
@@ -26,14 +26,14 @@ export const Game = () => {
       parent: containerId,
     })
 
-    game.events.on('scoreUp', (score: number) => {
+    game.events.on(Event.ScoreUp, (score: number) => {
       console.log('[GameEvent] scoreUp:', score)
       setCurrentScore(score)
     })
 
-    game.events.on('endgame', () => {
+    game.events.on(Event.Endgame, () => {
       console.log('[GameEvent] end game')
-      game.events.emit('restart')
+      game.events.emit(Event.Restart)
     })
 
     setGame(game)
@@ -47,7 +47,7 @@ export const Game = () => {
         score: currentScore,
       }
       console.log('[SocketIO] scoreUp payload:', payload)
-      socket.emit('scoreUp', payload)
+      socket.emit(Event.ScoreUp, payload)
     }
   }, [currentScore])
 
@@ -61,8 +61,8 @@ export const Game = () => {
     const userId = session.data?.user?.id
     if (isConnected && userId) {
       console.log('[SocketIO] Init user', userId)
-      socket.emit('init', userId)
-      socket.on('init', (data: SocketInitResponse) => {
+      socket.emit(Event.Init, userId)
+      socket.on(Event.Init, (data: SocketInitResponse) => {
         console.log('[SocketIO] Init response', data)
         setPlayerTopScore(data.yourScore)
         setAllPlayersTopScore(data.topScore)
@@ -71,13 +71,13 @@ export const Game = () => {
   }, [isConnected])
 
   return (
-    <div>
-      <ul>
+    <>
+      <ul className="pb-4">
         <li>All players top score: {allPlayersTopScore}</li>
         <li>Your top score: {playerTopScore}</li>
         <li>Your current score: {currentScore}</li>
       </ul>
       <div id={containerId} />
-    </div>
+    </>
   )
 }
