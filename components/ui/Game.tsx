@@ -33,6 +33,7 @@ export const Game = () => {
 
     game.events.on(Event.Endgame, () => {
       console.log('[GameEvent] end game')
+      setCurrentScore(0)
       game.events.emit(Event.Restart)
     })
 

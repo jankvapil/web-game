@@ -11,12 +11,12 @@ export default function Login() {
         <div className="flex flex-col items-center justify-center space-y-3 border-b border-gray-200 bg-white px-4 py-6 pt-8 text-center sm:px-16">
           <Link href="/">
             <Image
-              src="/logo.png"
+              src="/snake.jpg"
               priority
               alt="Logo"
-              className="h-10 w-10 rounded-full"
-              width={20}
-              height={20}
+              className="h-20 w-20 rounded-full"
+              width={150}
+              height={150}
             />
           </Link>
           <h3 className="text-xl font-semibold">Sign In</h3>

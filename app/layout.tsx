@@ -8,9 +8,9 @@ import { ContentWrapper } from '@/components/ui/ContentWrapper'
 import { SocketProvider } from '@/components/providers/SocketProvider'
 import { SessionProvider } from '@/components/providers/SessionProvider'
 
-const title = 'Next.js Prisma Postgres Auth Starter'
+const title = 'Snake game'
 const description =
-  'This is a Next.js starter kit that uses Next-Auth for simple email + password login and a Postgres database to persist the data.'
+  'This is a snake game with user score sync to database via web-sockets'
 
 export const metadata: Metadata = {
   title,
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     title,
     description,
   },
-  metadataBase: new URL('https://nextjs-postgres-auth.vercel.app'),
+  metadataBase: new URL('https://web-game-production.up.railway.app/'),
   themeColor: '#FFF',
 }
 

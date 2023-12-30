@@ -182,10 +182,10 @@ function create() {
 
     collideWithFood: function (food) {
       if (this.head.x === food.x && this.head.y === food.y) {
-        eventBus.emit(Event.ScoreUp, food.total)
-
         this.grow()
         food.eat()
+
+        eventBus.emit(Event.ScoreUp, food.total)
 
         //  For every 5 items of food eaten we'll increase the snake speed a little
         if (this.speed > 20 && food.total % 5 === 0) {
