@@ -72,13 +72,13 @@ export const Game = () => {
   }, [isConnected])
 
   return (
-    <>
-      <ul className="pb-4">
+    <div className="flex">
+      <div id={containerId} />
+      <ul className="pl-4">
         <li>All players top score: {allPlayersTopScore}</li>
         <li>Your top score: {playerTopScore}</li>
         <li>Your current score: {currentScore}</li>
       </ul>
-      <div id={containerId} />
-    </>
+    </div>
   )
 }
